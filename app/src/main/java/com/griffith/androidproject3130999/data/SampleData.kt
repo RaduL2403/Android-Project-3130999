@@ -1,0 +1,177 @@
+//Radu Lupu 3130999
+
+package com.griffith.androidproject3130999.data
+
+
+// initial demo dataset
+object SampleData {
+
+    // Weather status header
+    val sampleWeather = WeatherInfo(
+        dateString = "Thursday, June 12",
+        condition = "Light rain",
+        tempC = 14,
+        description = "Great spotting weather"
+    )
+
+    //daily tasks for Today's Task checklist
+    val sampleTasks = listOf(
+        DailyTask(
+            id = "task_1",
+            title = "Porsche 911",
+            description = "Capture one with rain in frame",
+            isCompleted = true,
+            carMakeHint = "Porsche"),
+        DailyTask (
+            id = "task_2",
+            title = "Bright exotic",
+            description = "Find one reflected on a wet street",
+            isCompleted = true,
+            carMakeHint = "Lamborghini"),
+        DailyTask (
+            id = "task_3",
+            title = "McLaren in motion",
+            description = "Catch wheel spray or rain trails",
+            isCompleted = false,
+            carMakeHint = "McLaren")
+    )
+
+    //spot of the day
+    val spotOfTheDay = CarSpot(
+        id = "spot_day_1",
+        brand = "Lamborghini",
+        model = "Huracan EVO",
+        trim = "V10 LP 640-4",
+        rarity = CarRarity.SUPERCAR,
+        location = "SoHo, New York",
+        timestamp = "8:42 AM",
+        weatherDescription = "Light rain | 14°C",
+        spotterName = "Alex BimBIm",
+        spotterInitials = "AC",
+        note = "Arancio orange against the downtown skyline. A perfect morning catch.",
+        engineType = "5.2L Naturally Aspirated V10",
+        bodyType = "Coupe",
+        horsepower = "640 HP",
+        topSpeed = "325 km/h",
+        year = "2023",
+        latitude = 40.7233,
+        longitude = -74.0030
+    )
+
+    // Collection preview & album list containing cars of all 5 rarity levels
+    val latestCaptures = listOf(
+        CarSpot(
+            id = "porsche_911",
+            brand = "Porsche",
+            model = "911 GT3",
+            trim = "Touring Package",
+            rarity = CarRarity.TRACK_EDITION,
+            location = "Greenwich St, New York",
+            timestamp = "Yesterday, 4:15 PM",
+            weatherDescription = "Overcast · 16°C",
+            spotterName = "Alex BimBIm",
+            spotterInitials = "AC",
+            note = "Chalk white finish parked outside the boutique. Impeccable sound.",
+            engineType = "4.0L Flat-6",
+            bodyType = "Coupe",
+            horsepower = "502 HP",
+            topSpeed = "318 km/h",
+            year = "2022",
+            latitude = 40.7180,
+            longitude = -74.0080
+        ),
+        CarSpot(
+            id = "lambo_huracan",
+            brand = "Lamborghini",
+            model = "Huracán EVO",
+            trim = "Arancio X",
+            rarity = CarRarity.SUPERCAR,
+            location = "Spring St, SoHo",
+            timestamp = "Today, 8:42 AM",
+            weatherDescription = "Light rain · 14°C",
+            spotterName = "Alex BimBIm",
+            spotterInitials = "AC",
+            note = "Bright orange paint glowing under wet street lights.",
+            engineType = "5.2L V10",
+            bodyType = "Coupe",
+            horsepower = "640 HP",
+            topSpeed = "325 km/h",
+            year = "2023",
+            latitude = 40.7233,
+            longitude = -74.0030
+        ),
+        CarSpot(
+            id = "mclaren_720s",
+            brand = "McLaren",
+            model = "720S Spider",
+            trim = "Performance",
+            rarity = CarRarity.HYPERCAR,
+            location = "Hudson Yards, NY",
+            timestamp = "June 10, 9:20 PM",
+            weatherDescription = "Clear · 18°C",
+            spotterName = "Alex BimBIm",
+            spotterInitials = "AC",
+            note = "Midnight black with exposed carbon fiber aero components.",
+            engineType = "4.0L Twin-Turbo V8",
+            bodyType = "Convertible",
+            horsepower = "710 HP",
+            topSpeed = "341 km/h",
+            year = "2021",
+            latitude = 40.7538,
+            longitude = -74.0022
+        ),
+        CarSpot(
+            id = "ferrari_f8",
+            brand = "Ferrari",
+            model = "F8 Tributo",
+            trim = "Rosso Corsa",
+            rarity = CarRarity.EXOTIC,
+            location = "Fifth Avenue, NY",
+            timestamp = "June 8, 2:10 PM",
+            weatherDescription = "Sunny · 22°C",
+            spotterName = "Alex BimBIm",
+            spotterInitials = "AC",
+            note = "Classic Rosso Corsa with tan leather interior.",
+            engineType = "3.9L Twin-Turbo V8",
+            bodyType = "Coupe",
+            horsepower = "710 HP",
+            topSpeed = "340 km/h",
+            year = "2022",
+            latitude = 40.7624,
+            longitude = -73.9738
+        ),
+        CarSpot(
+            id = "bmw_m3",
+            brand = "BMW",
+            model = "M3 Competition",
+            trim = "xDrive",
+            rarity = CarRarity.COMMON,
+            location = "Broadway, NY",
+            timestamp = "June 6, 11:30 AM",
+            weatherDescription = "Partly Cloudy · 20°C",
+            spotterName = "Alex BimBIm",
+            spotterInitials = "AC",
+            note = "Isle of Man Green metallic finish.",
+            engineType = "3.0L Twin-Turbo Inline-6",
+            bodyType = "Sedan",
+            horsepower = "503 HP",
+            topSpeed = "290 km/h",
+            year = "2023",
+            latitude = 40.7580,
+            longitude = -73.9855
+        )
+    )
+
+    //Initial user profile defaults
+    val defaultProfile = UserProfile(
+        name = "Alex BimBIm",
+        email = "alex.bimbim@exotichunt.com",
+        age = 24,
+        country = "United States",
+        city = "New York",
+        streakCount = 12,
+        totalSpots = 42,
+        tasksCompleted = 18,
+        favoriteCarSpotId = "lambo_huracan"
+    )
+}

@@ -46,10 +46,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3. Divider
@@ -66,15 +63,60 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import com.griffith.androidproject3130999.ui.theme.AndroidProject3130999Theme
+import com.griffith.androidproject3130999.data.AppRepository
 
+//main
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            PreviewScreen()
         }
     }
 }
 
+
+ //PreviewScreen: verification of app functionality
+
+@Composable
+fun PreviewScreen(){
+
+    val profile = AppRepository.userProfile
+    val spotCount = AppRepository.spots.size
+    val taskCount = AppRepository.tasks.size
+
+    Scaffold {innerPadding ->
+        Box( modifier = Modifier.fillMaxSize().padding(innerPadding),
+            contentAlignment = Alignment.Center) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(16.dp))
+            {
+                Text(
+                    text = "Exotic Hunt Engine",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = "User: ${profile.name} (${profile.email})",
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                Text(
+                    text = "Loaded Spots: $spotCount | Daily Tasks: $taskCount",
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+                Text(
+                    text = "Streak Count: 🔥 ${profile.streakCount}",
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+        }
+    }
+
+
+
+}
