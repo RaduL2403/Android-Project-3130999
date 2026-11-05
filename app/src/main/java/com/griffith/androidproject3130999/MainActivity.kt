@@ -19,9 +19,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,7 +44,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3. Divider
@@ -61,62 +62,53 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import com.griffith.androidproject3130999.data.Screen
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import com.griffith.androidproject3130999.data.AppRepository
+import com.griffith.androidproject3130999.ui.components.BottomNavBar
+import com.griffith.androidproject3130999.ui.components.HeaderBar
+import com.griffith.androidproject3130999.ui.theme.AndroidProject3130999Theme
 
-//main
+// Entry activity for the Exotic Hunt application
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            PreviewScreen()
+            AndroidProject3130999Theme {
+                MainScaffold()
+            }
         }
     }
 }
 
-
- //PreviewScreen: verification of app functionality
-
+// Scaffold hosting header, bottom navigation bar, and active screen content
 @Composable
-fun PreviewScreen(){
+fun MainScaffold() {
+    val currentScreen = AppRepository.currentScreen
 
-    val profile = AppRepository.userProfile
-    val spotCount = AppRepository.spots.size
-    val taskCount = AppRepository.tasks.size
+    Scaffold( topBar = {HeaderBar() },
+        bottomBar = {
+            BottomNavBar(
+                activeScreen = currentScreen,
+                onScreenSelected = { AppRepository.navigateTo(it) }
+            )
+        }) { innerPadding ->
+        Box(modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF0F6F8))
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center){
 
-    Scaffold {innerPadding ->
-        Box( modifier = Modifier.fillMaxSize().padding(innerPadding),
-            contentAlignment = Alignment.Center) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp))
-            {
-                Text(
-                    text = "Exotic Hunt Engine",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "User: ${profile.name} (${profile.email})",
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                Text(
-                    text = "Loaded Spots: $spotCount | Daily Tasks: $taskCount",
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
-                Text(
-                    text = "Streak Count: 🔥 ${profile.streakCount}",
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp)
-                )
+            when (currentScreen) {
+                Screen.ACTIVITY -> Text("Activity Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.MAP -> Text("Map Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.CAMERA -> Text("Camera Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.ALBUM -> Text("Album Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.PROFILE -> Text("Profile Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
-
-
-
 }
