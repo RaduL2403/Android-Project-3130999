@@ -69,6 +69,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.griffith.androidproject3130999.data.AppRepository
 import com.griffith.androidproject3130999.ui.components.BottomNavBar
 import com.griffith.androidproject3130999.ui.components.HeaderBar
+import com.griffith.androidproject3130999.ui.screens.ActivityScreen
 import com.griffith.androidproject3130999.ui.theme.AndroidProject3130999Theme
 
 // Entry activity for the Exotic Hunt application
@@ -84,7 +85,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Scaffold hosting header, bottom navigation bar, and active screen content
+//Scaffold hosting header, bottom navigation bar, and active screen contentt
 @Composable
 fun MainScaffold() {
     val currentScreen = AppRepository.currentScreen
@@ -96,14 +97,13 @@ fun MainScaffold() {
                 onScreenSelected = { AppRepository.navigateTo(it) }
             )
         }) { innerPadding ->
-        Box(modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFF0F6F8))
+        Box(modifier = Modifier.fillMaxSize()
+                .background(Color(0xFFF5FCFF))
                 .padding(innerPadding),
             contentAlignment = Alignment.Center){
 
             when (currentScreen) {
-                Screen.ACTIVITY -> Text("Activity Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.ACTIVITY -> ActivityScreen()
                 Screen.MAP -> Text("Map Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Screen.CAMERA -> Text("Camera Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Screen.ALBUM -> Text("Album Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
@@ -111,4 +111,6 @@ fun MainScaffold() {
             }
         }
     }
+
+
 }
