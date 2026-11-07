@@ -1,4 +1,6 @@
 // Radu Lupu 3130999
+
+
 package com.griffith.androidproject3130999.ui.screens
 
 import androidx.compose.foundation.BorderStroke
@@ -40,14 +42,14 @@ import com.griffith.androidproject3130999.data.CarRarity
 import com.griffith.androidproject3130999.data.CarSpot
 import com.griffith.androidproject3130999.data.Screen
 
-// Camera Screen with live viewfinder simulation and post-capture review screen with AI identification summary
+// Camera Screen with live viewfinder and shutter controls
 @Composable
 fun CameraScreen(
     onTriggerCameraIntent: () -> Unit,
     onTriggerGalleryIntent: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Review mode state (false = live camera viewfinder, true = post-capture review screen)
+    // Review mode state (false = live camera viewfinder, true = post capture review screen  )
     var isReviewingCapture by remember { mutableStateOf(false) }
 
     if (!isReviewingCapture) {
@@ -55,10 +57,9 @@ fun CameraScreen(
         Box(modifier = modifier.fillMaxSize().background(Color(0xFF0F172A) )) {
             // Viewfinder Preview Canvas
             Box(
-                modifier = Modifier.fillMaxSize()
-                    .padding(bottom = 90.dp)
-                    .background(Color(0xFF1E293B)),
+                modifier = Modifier.fillMaxSize().padding(bottom = 90.dp).background(Color(0xFF1E293B)),
                 contentAlignment = Alignment.Center
+
             ){
 
                 //Car subject preview
@@ -70,7 +71,7 @@ fun CameraScreen(
 
                 }
 
-                // Viewfinder Target Reticle Frame Corners
+                // Viewfinder target
                 Box(
                     modifier = Modifier.size(260.dp, 180.dp).border(2.dp, Color(0xFF00E676), RoundedCornerShape(16.dp))
                 )
@@ -82,6 +83,7 @@ fun CameraScreen(
                         .clip(RoundedCornerShape(20.dp))
                         .background(Color.Black.copy(alpha = 0.6f))
                         .padding(horizontal = 14.dp, vertical = 6.dp)
+
                 ){
                     Text( text = "Camera preview · Demo",
                         fontSize = 12.sp,
@@ -92,7 +94,7 @@ fun CameraScreen(
 
                 }
 
-                // Close Button (✕)
+                //Close Button (✕)
                 Box(
                     modifier = Modifier.align(Alignment.TopEnd)
                         .padding(20.dp)
@@ -124,7 +126,7 @@ fun CameraScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // System Camera Launcher Button (Implicit Intent)
+                    // System Camera Launcher button (button that will launch the phone camera instead of the app one )
                     Box(
                         modifier = Modifier.size(44.dp)
                             .clip(CircleShape)
@@ -138,7 +140,7 @@ fun CameraScreen(
 
                     }
 
-                    // Large Shutter Button (Triggers Post-Capture Review)
+                    // Large shutter button
                     Box(
                         modifier = Modifier.size(68.dp)
                             .clip(CircleShape)
@@ -154,7 +156,7 @@ fun CameraScreen(
 
                     }
 
-                    // Gallery Picker Launcher Button (Implicit Intent)
+                    // Gallery Picker Button
                     Box(
                         modifier = Modifier.size(44.dp).clip(RoundedCornerShape(12.dp))
                             .background(Color(0xFF1E293B))
@@ -172,7 +174,7 @@ fun CameraScreen(
         }
 
     } else{
-        // Post-Capture Review Screen (Matching Figma Design)
+        // Post-Capture Review screen
         Column(
             modifier =modifier.fillMaxSize()
                 .background(Color(0xFF0B0F17))
@@ -186,7 +188,7 @@ fun CameraScreen(
             ) {
                 Text(text ="🏎️", fontSize =100.sp)
 
-                // Top Tag: Review your capture
+                //Top Tag: review capture
                 Box(
                     modifier = Modifier.align(Alignment.TopStart)
                         .padding(20.dp)
@@ -202,7 +204,7 @@ fun CameraScreen(
                     )
                 }
 
-                // Close Button
+                //Close Button
                 Box(
                     modifier = Modifier.align(Alignment.TopEnd).padding(20.dp)
                         .size(36.dp)
@@ -216,7 +218,7 @@ fun CameraScreen(
                 }
             }
 
-            // AI Identification Summary & Metadata Card
+            // AI Identification summary
             Column(
                 modifier = Modifier.fillMaxWidth().padding(20.dp)
 
@@ -236,12 +238,12 @@ fun CameraScreen(
                 )
                 Spacer(modifier = Modifier.height(18.dp))
 
-                // Metadata 2x2 Grid
+                // Metadata Grid
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(text = "Location", fontSize = 12.sp, color = Color(0xFF64748B))
                         Text(
-                            text = "SoHo, New York",
+                            text = "Grafton Street, Dublin",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
@@ -318,12 +320,12 @@ fun CameraScreen(
                                 model = "Huracan EVO",
                                 trim = "LP 640-4",
                                 rarity = CarRarity.SUPERCAR,
-                                location = "SoHo, New York",
+                                location = "Grafton Street, Dublin",
                                 timestamp = "Just now",
                                 weatherDescription = "Light rain · 14°C",
                                 spotterName = AppRepository.userProfile.name,
                                 spotterInitials = "JO",
-                                note = "Captured live on SoHo street."
+                                note = "Captured live on Grafton Street, Dublin."
                             )
 
                             AppRepository.addNewSpot(newSpot)

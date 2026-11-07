@@ -98,7 +98,7 @@ fun MainScaffold() {
 
     val currentScreen = AppRepository.currentScreen
 
-    // System Camera Implicit Intent Launcher
+    // System Camera launcher
     val takePictureLauncher = rememberLauncherForActivityResult(
         contract= ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
@@ -109,7 +109,7 @@ fun MainScaffold() {
                 model = "Huracán EVO",
                 trim = "LP 640-4",
                 rarity = CarRarity.SUPERCAR,
-                location= "SoHo, New York",
+                location= "Grafton Street, Dublin",
                 timestamp ="Just now",
                 weatherDescription ="Light rain · 14°C",
                 spotterName =AppRepository.userProfile.name,
@@ -124,7 +124,7 @@ fun MainScaffold() {
         }
     }
 
-    // Photo Gallery Implicit Intent Launcher
+    // Photo Gallery
     val pickGalleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
@@ -135,7 +135,7 @@ fun MainScaffold() {
                 model = "911 GT3",
                 trim = "Touring",
                 rarity = CarRarity.TRACK_EDITION,
-                location = "Fifth Avenue, NY",
+                location = "Docklands, Dublin",
                 timestamp = "Imported from Gallery",
                 weatherDescription = "Sunny · 20°C",
                 spotterName = AppRepository.userProfile.name,

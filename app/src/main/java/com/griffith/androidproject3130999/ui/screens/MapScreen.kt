@@ -62,7 +62,7 @@ fun MapScreen( modifier: Modifier = Modifier) {
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF0F172A))
-            Text( text = "Demo sightings · New York",
+            Text( text = "Demo sightings · Dublin, Ireland",
                 fontSize = 13.sp,
                 color = Color(0xFF64748B))
 
@@ -142,7 +142,7 @@ fun MapScreen( modifier: Modifier = Modifier) {
                     .background(Color.White)
                     .padding(horizontal = 12.dp, vertical = 6.dp)){
 
-                Text(text = "SoHo, New York · 2 km radius",
+                Text(text = "Grafton Street, Dublin · 2 km radius",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF0F172A))
