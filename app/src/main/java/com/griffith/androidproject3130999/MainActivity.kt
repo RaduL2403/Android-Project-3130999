@@ -19,6 +19,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -67,10 +68,13 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import com.griffith.androidproject3130999.data.AppRepository
+import com.griffith.androidproject3130999.data.CarRarity
+import com.griffith.androidproject3130999.data.CarSpot
 import com.griffith.androidproject3130999.ui.components.BottomNavBar
 import com.griffith.androidproject3130999.ui.components.HeaderBar
 import com.griffith.androidproject3130999.ui.screens.ActivityScreen
 import com.griffith.androidproject3130999.ui.screens.AlbumScreen
+import com.griffith.androidproject3130999.ui.screens.CameraScreen
 import com.griffith.androidproject3130999.ui.screens.MapScreen
 import com.griffith.androidproject3130999.ui.screens.ProfileScreen
 import com.griffith.androidproject3130999.ui.theme.AndroidProject3130999Theme
@@ -91,7 +95,62 @@ class MainActivity : ComponentActivity() {
 //Scaffold hosting header, bottom navigation bar, and active screen contentt
 @Composable
 fun MainScaffold() {
+
     val currentScreen = AppRepository.currentScreen
+
+    // System Camera Implicit Intent Launcher
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract= ActivityResultContracts.TakePicturePreview()
+    ) { bitmap ->
+        if ( bitmap != null){
+            val newSpot = CarSpot(
+                id= "photo_${System.currentTimeMillis()}",
+                brand= "Lamborghini",
+                model = "Huracán EVO",
+                trim = "LP 640-4",
+                rarity = CarRarity.SUPERCAR,
+                location= "SoHo, New York",
+                timestamp ="Just now",
+                weatherDescription ="Light rain · 14°C",
+                spotterName =AppRepository.userProfile.name,
+                spotterInitials = "JO",
+                note = "Captured via device camera."
+            )
+
+            AppRepository.addNewSpot(newSpot)
+            AppRepository.navigateTo(Screen.ALBUM)
+
+
+        }
+    }
+
+    // Photo Gallery Implicit Intent Launcher
+    val pickGalleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        if (uri != null ) {
+            val newSpot =CarSpot(
+                id = "gallery_${System.currentTimeMillis()}",
+                brand = "Porsche",
+                model = "911 GT3",
+                trim = "Touring",
+                rarity = CarRarity.TRACK_EDITION,
+                location = "Fifth Avenue, NY",
+                timestamp = "Imported from Gallery",
+                weatherDescription = "Sunny · 20°C",
+                spotterName = AppRepository.userProfile.name,
+                spotterInitials = "JO",
+                note = "Imported from phone gallery."
+
+            )
+
+            AppRepository.addNewSpot(newSpot)
+            AppRepository.navigateTo(Screen.ALBUM)
+
+        }
+
+
+    }
 
     Scaffold( topBar = {HeaderBar() },
         bottomBar ={
@@ -99,7 +158,7 @@ fun MainScaffold() {
                 activeScreen = currentScreen,
                 onScreenSelected = { AppRepository.navigateTo(it) }
             )
-        }) { innerPadding ->
+        }) {innerPadding ->
         Box(modifier = Modifier.fillMaxSize()
                 .background(Color(0xFFF5FCFF))
                 .padding(innerPadding),
@@ -108,7 +167,10 @@ fun MainScaffold() {
             when ( currentScreen) {
                 Screen.ACTIVITY -> ActivityScreen()
                 Screen.MAP -> MapScreen()
-                Screen.CAMERA -> Text("Camera Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.CAMERA -> CameraScreen(
+                    onTriggerCameraIntent = { takePictureLauncher.launch(null) },
+                    onTriggerGalleryIntent = { pickGalleryLauncher.launch("image/*") }
+                )
                 Screen.ALBUM -> AlbumScreen()
                 Screen.PROFILE -> ProfileScreen()
 

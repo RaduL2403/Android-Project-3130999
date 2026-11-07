@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -29,41 +31,55 @@ import com.griffith.androidproject3130999.data.Screen
 fun BottomNavBar(
     activeScreen: Screen,
     onScreenSelected: (Screen) -> Unit,
-    modifier: Modifier = Modifier) {
-
-    Box(modifier = modifier
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
             .fillMaxWidth()
             .background(Color(0xFF111827))
-            .padding(vertical = 8.dp),
-        contentAlignment = Alignment.Center) {
-
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically) {
-
+            .navigationBarsPadding()
+            .padding(vertical = 6.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             // Activity tab
             NavItem(
                 title = "Activity",
                 icon = "📈",
                 isSelected = activeScreen == Screen.ACTIVITY,
-                onClick = { onScreenSelected(Screen.ACTIVITY) })
+                onClick = { onScreenSelected(Screen.ACTIVITY) },
+                modifier = Modifier.weight(1f)
+            )
 
             // Map tab
             NavItem(
                 title = "Map",
                 icon = "🗺️",
                 isSelected = activeScreen == Screen.MAP,
-                onClick = { onScreenSelected(Screen.MAP)}
+                onClick = { onScreenSelected(Screen.MAP) },
+                modifier = Modifier.weight(1f)
             )
 
             // Central green Camera FAB
-            Box(modifier = Modifier
-                    .size(54.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFF00E676))
-                    .clickable { onScreenSelected(Screen.CAMERA) },
-                contentAlignment = Alignment.Center){
-                Text(text = "📷", fontSize = 24.sp)
+            Box(
+                modifier = Modifier
+                    .weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFF00E676))
+                        .clickable { onScreenSelected(Screen.CAMERA) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "📷", fontSize = 22.sp)
+                }
             }
 
             // Album tab
@@ -71,7 +87,8 @@ fun BottomNavBar(
                 title = "Album",
                 icon = "🖼️",
                 isSelected = activeScreen == Screen.ALBUM,
-                onClick = { onScreenSelected(Screen.ALBUM) }
+                onClick = { onScreenSelected(Screen.ALBUM) },
+                modifier = Modifier.weight(1f)
             )
 
             // Profile tab
@@ -79,39 +96,39 @@ fun BottomNavBar(
                 title = "Profile",
                 icon = "👤",
                 isSelected = activeScreen == Screen.PROFILE,
-                onClick = { onScreenSelected(Screen.PROFILE) }
+                onClick = {onScreenSelected(Screen.PROFILE) },
+                modifier = Modifier.weight(1f)
             )
         }
     }
 }
 
-// Sub-component for individual bottom navigation tab items
+//component for navigation tab items
 @Composable
-private fun NavItem(
-    title: String,
-    icon: String,
+private fun NavItem( title: String, icon: String,
     isSelected: Boolean,
-    onClick: () -> Unit) {
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { onClick() }.padding(horizontal = 12.dp, vertical = 4.dp)
-    ) {
+    onClick: () ->Unit,
+    modifier: Modifier = Modifier ) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.clickable { onClick() }.padding(vertical = 4.dp)
+    ){
         // Active green line indicator above icon
-        Box( modifier = Modifier.height(3.dp)
-                .fillMaxWidth(0.6f)
+        Box(
+            modifier = Modifier.height(3.dp)
+                .width(28.dp)
                 .clip(RoundedCornerShape(2.dp))
-                .background(if (isSelected) Color(0xFF00E676) else Color.Transparent)
-        )
+                .background(if (isSelected) Color(0xFF00E676) else Color.Transparent))
 
         Text( text = icon,
             fontSize = 18.sp,
-            modifier = Modifier.padding(top = 4.dp)
+            modifier = Modifier.padding(top = 2.dp)
         )
         Text( text = title,
-            fontSize = 11.sp,
+            fontSize = 10.sp,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-            color = if (isSelected) Color.White else Color(0xFF9CA3AF)
-        )
+            color = if (isSelected) Color.White else Color(0xFF9CA3AF))
+
     }
 
 
