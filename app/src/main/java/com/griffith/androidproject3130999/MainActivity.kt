@@ -71,6 +71,8 @@ import com.griffith.androidproject3130999.ui.components.BottomNavBar
 import com.griffith.androidproject3130999.ui.components.HeaderBar
 import com.griffith.androidproject3130999.ui.screens.ActivityScreen
 import com.griffith.androidproject3130999.ui.screens.AlbumScreen
+import com.griffith.androidproject3130999.ui.screens.MapScreen
+import com.griffith.androidproject3130999.ui.screens.ProfileScreen
 import com.griffith.androidproject3130999.ui.theme.AndroidProject3130999Theme
 
 // Entry activity for the Exotic Hunt application
@@ -105,10 +107,10 @@ fun MainScaffold() {
 
             when ( currentScreen) {
                 Screen.ACTIVITY -> ActivityScreen()
-                Screen.MAP -> Text("Map Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.MAP -> MapScreen()
                 Screen.CAMERA -> Text("Camera Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Screen.ALBUM -> AlbumScreen()
-                Screen.PROFILE -> Text("Profile Screen", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Screen.PROFILE -> ProfileScreen()
 
             }
         }
